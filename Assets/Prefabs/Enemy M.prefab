@@ -152,7 +152,7 @@ MonoBehaviour:
   enemyName: M
   enemyScore: 200
   speed: 10
-  health: 15
+  health: 10
   sprites:
   - {fileID: -7642239419928554605, guid: 160658157ffbca84a8054d3a753211d8, type: 3}
   - {fileID: -7911572535675539837, guid: 160658157ffbca84a8054d3a753211d8, type: 3}
@@ -160,4 +160,7 @@ MonoBehaviour:
   curShotDelay: 0
   bulletObjA: {fileID: 1827971703408771999, guid: e986b5f691351814ab87df14868c06ef, type: 3}
   bulletObjB: {fileID: 1827971703408771999, guid: 60040b73324b9604f9b9802ced1fc197, type: 3}
+  itemCoin: {fileID: 4533291802403094927, guid: d9bc0c89b91414043bba947002fa1736, type: 3}
+  itemPower: {fileID: 2265427089400491135, guid: bb34f595c2b8b99448270c8e0ce372e2, type: 3}
+  itemBoom: {fileID: 7930365127921317032, guid: d32e4169dbe7b1340b47c0b297907050, type: 3}
   player: {fileID: 0}
