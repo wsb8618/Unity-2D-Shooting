@@ -1913,6 +1913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba4dfea62d1b5147aa159b0f0dd6182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBPrefab: {fileID: 1041053148933619181, guid: 371671078d62876448e03d1c5b57277d, type: 3}
   enemyLPrefab: {fileID: 3009442187349541069, guid: b8894573175ede94cbce0f8bc51ab7f8, type: 3}
   enemyMPrefab: {fileID: 9089352319127556038, guid: e8b12b2387504e747bd423a6ee248f2a, type: 3}
   enemySPrefab: {fileID: 2463836266339273921, guid: 1473713f828841f4da13bcba1b4368c6, type: 3}
@@ -1924,6 +1925,8 @@ MonoBehaviour:
   bulletEnemyAPrefab: {fileID: 1827971703408771999, guid: e986b5f691351814ab87df14868c06ef, type: 3}
   bulletEnemyBPrefab: {fileID: 1827971703408771999, guid: 60040b73324b9604f9b9802ced1fc197, type: 3}
   bulletFollowerPrefab: {fileID: 1955809037368189244, guid: 943105bce87359a49a2220a175035ac9, type: 3}
+  bulletBossAPrefab: {fileID: 1827971703408771999, guid: 32bd1202453620d48830dcfabaa187a9, type: 3}
+  bulletBossBPrefab: {fileID: 1827971703408771999, guid: 7419e6d87c35f824ca24e951f47eddc6, type: 3}
 --- !u!4 &1141291746
 Transform:
   m_ObjectHideFlags: 0

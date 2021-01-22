@@ -146,16 +146,25 @@ public class Player : MonoBehaviour
         Invoke("OffBoomEffect", 2f);
 
         //Remove Enemy
+        GameObject[] enemiesB = objectManager.GetPool("EnemyB");
         GameObject[] enemiesL = objectManager.GetPool("EnemyL");
         GameObject[] enemiesM = objectManager.GetPool("EnemyM");
         GameObject[] enemiesS = objectManager.GetPool("EnemyS");
 
+        for (int index = 0; index < enemiesB.Length; index++)
+        {
+            if (enemiesB[index].activeSelf)
+            {
+                Enemy enemyLogic = enemiesB[index].GetComponent<Enemy>();
+                enemyLogic.OnHit(500);
+            }
+        }
         for (int index = 0; index < enemiesL.Length; index++)
         {
             if (enemiesL[index].activeSelf)
             {
                 Enemy enemyLogic = enemiesL[index].GetComponent<Enemy>();
-                enemyLogic.OnHit(1000);
+                enemyLogic.OnHit(500);
             }
         }
         for (int index = 0; index < enemiesM.Length; index++)
@@ -163,7 +172,7 @@ public class Player : MonoBehaviour
             if (enemiesM[index].activeSelf)
             {
                 Enemy enemyLogic = enemiesM[index].GetComponent<Enemy>();
-                enemyLogic.OnHit(1000);
+                enemyLogic.OnHit(500);
             }
         }
         for (int index = 0; index < enemiesS.Length; index++)
@@ -171,13 +180,16 @@ public class Player : MonoBehaviour
             if (enemiesS[index].activeSelf)
             {
                 Enemy enemyLogic = enemiesS[index].GetComponent<Enemy>();
-                enemyLogic.OnHit(1000);
+                enemyLogic.OnHit(500);
             }
         }
 
         //Remove Enemy Bullet
         GameObject[] bulletsA = objectManager.GetPool("BulletEnemyA");
         GameObject[] bulletsB = objectManager.GetPool("BulletEnemyB");
+        GameObject[] bulletsBossA = objectManager.GetPool("BulletBossA");
+        GameObject[] bulletsBossB = objectManager.GetPool("BulletBossB");
+
         for (int index = 0; index < bulletsA.Length; index++)
         {
             if (bulletsA[index].activeSelf)
@@ -190,6 +202,20 @@ public class Player : MonoBehaviour
             if (bulletsB[index].activeSelf)
             {
                 bulletsB[index].SetActive(false);
+            }
+        }
+        for (int index = 0; index < bulletsBossA.Length; index++)
+        {
+            if (bulletsBossA[index].activeSelf)
+            {
+                bulletsBossA[index].SetActive(false);
+            }
+        }
+        for (int index = 0; index < bulletsBossB.Length; index++)
+        {
+            if (bulletsBossB[index].activeSelf)
+            {
+                bulletsBossB[index].SetActive(false);
             }
         }
     }
@@ -233,6 +259,13 @@ public class Player : MonoBehaviour
             }
 
             gameObject.SetActive(false);
+            if(collision.gameObject.tag == "Enemy")
+            {
+                GameObject boss = collision.gameObject;
+                Enemy enemyBoss = boss.GetComponent<Enemy>();
+                if (enemyBoss.enemyName == "B")
+                    return;
+            }
             collision.gameObject.SetActive(false);
         }
         else if(collision.gameObject.tag == "Item")
