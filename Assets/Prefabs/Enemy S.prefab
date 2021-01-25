@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: S
   enemyScore: 50
-  speed: 3
+  speed: 2
   health: 3
   sprites:
   - {fileID: -3876759189950653258, guid: 160658157ffbca84a8054d3a753211d8, type: 3}
@@ -149,3 +149,10 @@ MonoBehaviour:
   itemPower: {fileID: 2265427089400491135, guid: bb34f595c2b8b99448270c8e0ce372e2, type: 3}
   itemBoom: {fileID: 7930365127921317032, guid: d32e4169dbe7b1340b47c0b297907050, type: 3}
   player: {fileID: 0}
+  objectManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  patternIndex: 0
+  curPatternCount: 0
+  maxPatternCount: 
+  bossHealth: 
+  bossHealthCount: 0

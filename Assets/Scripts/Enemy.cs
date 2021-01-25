@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public GameObject itemBoom;
     public GameObject player;
     public ObjectManager objectManager;
+    public GameManager gameManager;
 
     SpriteRenderer spriteRenderer;
 
@@ -29,9 +30,14 @@ public class Enemy : MonoBehaviour
     public int curPatternCount;
     public int[] maxPatternCount;
 
+    public int[] bossHealth;
+    public int bossHealthCount;
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        bossHealth = new int[] { 1000, 1500, 2000};
+        bossHealthCount = 0;
 
         if (enemyName == "B")
             anim = GetComponent<Animator>();
@@ -42,7 +48,7 @@ public class Enemy : MonoBehaviour
         switch (enemyName)
         {
             case "B":
-                health = 2000;
+                health = bossHealth[bossHealthCount];
                 Invoke("Stop", 2);
                 break;
             case "L":
@@ -300,6 +306,12 @@ public class Enemy : MonoBehaviour
 
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
+            gameManager.CallExplosion(transform.position, enemyName);
+
+            //Boss Kill
+            if (enemyName == "B")
+                gameManager.StageEnd();
+                bossHealthCount++;
         }
     }
 
