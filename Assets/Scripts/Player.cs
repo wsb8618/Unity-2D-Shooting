@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     Animator anim;
     SpriteRenderer spriteRenderer;
 
+    public SoundManager soundManager;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
 
     void Unbeatable()
     {
+        isButtonB = false;
         isRespawnTime = !isRespawnTime;
         if (isRespawnTime)
         {
@@ -144,19 +147,21 @@ public class Player : MonoBehaviour
 
     public void ButtonBDown()
     {
-        isButtonB = true;
+        if (isBoomTime || isRespawnTime)
+            isButtonB = false;
+        else
+            isButtonB = true;
     }
 
     void Fire()
     {
-        //if (!Input.GetButton("Fire1"))
-        //    return;
-
         if (!isButtonA)
             return;
 
         if (curShotDelay < maxShotDelay)
             return;
+
+        soundManager.FireClip();
 
         switch (power)
         {
@@ -211,13 +216,10 @@ public class Player : MonoBehaviour
 
     void Boom()
     {
-        //if (!Input.GetButton("Fire2"))
-        //    return;
-
         if (!isButtonB)
             return;
 
-        if (isBoomTime)
+        if (isBoomTime || isRespawnTime)
             return;
 
         if (boom == 0)
@@ -226,6 +228,7 @@ public class Player : MonoBehaviour
         boom--;
         isButtonB = false;
         isBoomTime = true;
+        soundManager.BoomClip();
         gameManager.UpdateBoomIcon(boom);
 
         //Effect Visible
@@ -337,6 +340,7 @@ public class Player : MonoBehaviour
 
             isHit = true;
             life--;
+            soundManager.HitClip();
             gameManager.UpdateLifeIcon(life);
             gameManager.CallExplosion(transform.position, "P");
 
@@ -386,6 +390,7 @@ public class Player : MonoBehaviour
                     }
                     break;
             }
+            soundManager.ItemClip();
             collision.gameObject.SetActive(false);
         }
     }

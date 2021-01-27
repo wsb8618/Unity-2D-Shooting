@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        bossHealth = new int[] { 1000, 1500, 2000};
+        bossHealth = new int[] { 1000, 1500, 2000, 3000, 5000};
         bossHealthCount = 0;
 
         if (enemyName == "B")

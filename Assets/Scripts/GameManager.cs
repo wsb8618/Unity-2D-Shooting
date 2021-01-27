@@ -31,15 +31,67 @@ public class GameManager : MonoBehaviour
     public int spawnIndex;
     public bool spawnEnd;
 
+    public GameObject startMenu;
+    public GameObject rule;
+
+    public SoundManager soundManager;
+
+    public Text highScoreText;
+    public int highScore;
+
+    void Start()
+    {
+        ScoreLoad();
+        highScoreText.text = "High Score" + "\n" + string.Format("{0:n0}", highScore);
+    }
+
     void Awake()
     {
         spawnList = new List<Spawn>();
         enemyObjs = new string[]{ "EnemyS", "EnemyM", "EnemyL", "EnemyB" };
+    }
+
+    public void ScoreSave()
+    {
+        Player playerLogic = player.GetComponent<Player>();
+        if (highScore <= playerLogic.score)
+            highScore = playerLogic.score;
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save();
+    }
+
+    public void ScoreLoad()
+    {
+        if (!PlayerPrefs.HasKey("HighScore"))
+            return;
+
+        int highScoreRecord = PlayerPrefs.GetInt("HighScore");
+        highScore = highScoreRecord;
+    }
+
+    public void StartButton()
+    {
+        soundManager.ButtonClip();
         StageStart();
+        startMenu.SetActive(false);
+    }
+
+    public void RuleButton()
+    {
+        soundManager.ButtonClip();
+        rule.SetActive(true);
+    }
+
+    public void RuleBackButton()
+    {
+        soundManager.ButtonClip();
+        rule.SetActive(false);
     }
 
     public void StageStart()
     {
+        soundManager.StageClip();
+
         //Stage UI Load
         stageAnim.SetTrigger("On");
         stageAnim.GetComponent<Text>().text = "Stage " + stage + "\nStart!!";
@@ -73,7 +125,7 @@ public class GameManager : MonoBehaviour
 
         //Stage Increament
         stage++;
-        if (stage > 3)
+        if (stage > 5)
             Invoke("GameOver", 5);
         else
             Invoke("StageStart", 5);
@@ -114,6 +166,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (startMenu.activeSelf)
+            return;
+
         curSpawnDelay += Time.deltaTime;
 
         if(curSpawnDelay > nextSpawnDelay && !spawnEnd)
@@ -194,7 +249,7 @@ public class GameManager : MonoBehaviour
         }
 
         //UI Life Active
-        for (int index=0; index < life; index++)
+        for (int index = 0; index < life; index++)
         {
             lifeImage[index].color = new Color(1, 1, 1, 1);
         }
@@ -243,10 +298,18 @@ public class GameManager : MonoBehaviour
         Player playerLogic = player.GetComponent<Player>();
         gameOverSet.SetActive(true);
         gameOverText.text = "Race Finish!!" + "\nScore : " + string.Format("{0:n0}", playerLogic.score);
+        ScoreSave();
     }
 
     public void GameRetry()
     {
+        soundManager.ButtonClip();
         SceneManager.LoadScene(0);
+    }
+
+    public void GameExit()
+    {
+        soundManager.ButtonClip();
+        Application.Quit();
     }
 }
